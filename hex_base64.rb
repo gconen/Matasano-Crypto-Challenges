@@ -1,11 +1,10 @@
-HEX_ORDER = "0123456789abcdef".split("")
-BASE64_ORDER = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/"
+require "./constants.rb"
 
 def hex_to_base64(hex)
   hex = hex.reverse
   num = 0
   hex.each_char.with_index do |digit, place|
-    num += HEX_ORDER.find_index(digit) * (16 ** place)
+    num += HEX_VALUE[digit] * (16 ** place)
   end
   base64 = ""
   until num == 0
