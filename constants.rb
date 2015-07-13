@@ -17,3 +17,11 @@ HEX_VALUE = {
   "f" => 15
 }
 BASE64_ORDER = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/"
+
+values = {}
+
+BASE64_ORDER.each_char.with_index do |char, index|
+  values[char] = index
+end
+
+BASE64_VALUES = values

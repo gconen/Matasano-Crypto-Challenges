@@ -1,5 +1,4 @@
 require "./constants"
-require "byebug"
 
 def fixed_xor(hex1, hex2)
   result = ""
