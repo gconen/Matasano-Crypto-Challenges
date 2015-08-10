@@ -1,5 +1,5 @@
 class CryptoString
-  
+
   attr_reader :bytes
 
   def initialize
@@ -26,6 +26,11 @@ class CryptoString
     return @hex_string if @hex_string
 
     @bytes.map{ |byte| byte.to_s(16) }.join("")
+  end
+
+  def plaintext
+    return @plaintext if @plaintext
+    @bytes.pack("C*")
   end
 
   def set_hex(hex_string)
