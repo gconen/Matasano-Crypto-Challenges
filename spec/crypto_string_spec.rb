@@ -18,6 +18,11 @@ describe CryptoString do
     end
   end
 
+  it "recovers the same hex-encoded string" do
+    str = CryptoString.from_hex("4C6F72656D")
+    expect(str.hex.upcase).to eq("4C6F72656D")
+  end
+
   it "converts plaintext to hex encoded strings" do
     str = CryptoString.from_plaintext("Lorem")
     expect(str.hex.upcase).to eq("4C6F72656D")
