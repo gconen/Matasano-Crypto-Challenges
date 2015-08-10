@@ -1,4 +1,5 @@
 class CryptoString
+  
   attr_reader :bytes
 
   def initialize
@@ -19,6 +20,12 @@ class CryptoString
     raise "non-ascii characters" unless plaintext_string.ascii_only?
     str = CryptoString.new
     str.set_plaintext(plaintext_string)
+  end
+
+  def hex
+    return @hex_string if @hex_string
+
+    @bytes.map{ |byte| byte.to_s(16) }.join("")
   end
 
   def set_hex(hex_string)
