@@ -67,6 +67,15 @@ class CryptoString
     self
   end
 
+  def equal_length_xor(other_string)
+    new_bytes = []
+    bytes.each_index do |i|
+      new_bytes[i] = bytes[i] ^ other_string.bytes[i]
+    end
+
+    CryptoString.new(new_bytes)
+  end
+
   private
   def clear
     @plaintext = nil

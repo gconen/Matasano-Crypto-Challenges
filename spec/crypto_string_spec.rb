@@ -69,7 +69,7 @@ describe CryptoString do
     str2 = CryptoString.from_hex("686974207468652062756c6c277320657965")
 
     result = str1.equal_length_xor(str2)
-    expect(result).to eq("746865206b696420646f6e277420706c6179")
+    expect(result.hex).to eq("746865206b696420646f6e277420706c6179")
   end
 
 end
