@@ -64,6 +64,41 @@ describe CryptoString do
     end
   end
 
+  context "basic string operations" do
+    let(:str_plain) { CryptoString.from_plaintext("Lorem") }
+    let(:str_hex) { CryptoString.from_hex("4C6F72656D") }
+    let(:str_base64) { CryptoString.from_base64("TG9yZW0=") }
+    let(:str_bytes) { CryptoString.new([76, 111, 114, 101, 109]) }
+
+    it "has a length equal to its length in bytes" do
+      expect(str_plain.length).to eq(5)
+      expect(str_bytes.length).to eq(5)
+      expect(str_hex.length).to eq(5)
+      expect(str_base64.length).to eq(5)
+
+    end
+
+    context "equality" do
+      it "is not equal to other types of object" do
+        expect(str_plain == "Lorem").to be false
+      end
+
+      it "is equal to other CryptoStrings with the same content" do
+        expect(str_plain == str_hex).to be true
+        expect(str_base64 == str_hex).to be true
+        expect(str_plain == string_base64).to be true
+        expect(str_plain == str_bytes).to be true
+        expect(str_hex == str_bytes).to be true
+        expect(str_base64 == str_bytes).to be true
+      end
+
+      it "is not equal to other CryptoStrings with diffent content" do
+        str_other = CryptoString.from_plaintext("Not Equal")
+        expect(str_plain == str_other).to be false
+      end
+    end
+  end
+
   it "can xor itself with another CryptoString of equal length" do
     str1 = CryptoString.from_hex("1c0111001f010100061a024b53535009181c")
     str2 = CryptoString.from_hex("686974207468652062756c6c277320657965")
