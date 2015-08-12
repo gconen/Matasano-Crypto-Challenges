@@ -4,7 +4,8 @@ class CryptoString
 
   attr_reader :bytes
 
-  def initialize
+  def initialize(bytes = nil)
+    @bytes = bytes
   end
 
   def self.from_base64(base64_string)
