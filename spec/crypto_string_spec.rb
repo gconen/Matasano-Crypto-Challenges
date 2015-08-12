@@ -86,7 +86,7 @@ describe CryptoString do
       it "is equal to other CryptoStrings with the same content" do
         expect(str_plain == str_hex).to be true
         expect(str_base64 == str_hex).to be true
-        expect(str_plain == string_base64).to be true
+        expect(str_plain == str_base64).to be true
         expect(str_plain == str_bytes).to be true
         expect(str_hex == str_bytes).to be true
         expect(str_base64 == str_bytes).to be true

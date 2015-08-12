@@ -67,6 +67,11 @@ class CryptoString
     self
   end
 
+  def ==(other)
+    return false unless other.kind_of?(CryptoString)
+    bytes == other.bytes
+  end
+
   def equal_length_xor(other_string)
     new_bytes = []
     bytes.each_index do |i|
@@ -74,6 +79,10 @@ class CryptoString
     end
 
     CryptoString.new(new_bytes)
+  end
+
+  def length
+    bytes.length
   end
 
   private
