@@ -99,12 +99,31 @@ describe CryptoString do
     end
   end
 
-  it "can xor itself with another CryptoString of equal length" do
-    str1 = CryptoString.from_hex("1c0111001f010100061a024b53535009181c")
-    str2 = CryptoString.from_hex("686974207468652062756c6c277320657965")
+  context "xor ciphers" do
+    it "can xor itself with another CryptoString of equal length" do
+      str1 = CryptoString.from_hex("1c0111001f010100061a024b53535009181c")
+      str2 = CryptoString.from_hex("686974207468652062756c6c277320657965")
 
-    result = str1.equal_length_xor(str2)
-    expect(result.hex).to eq("746865206b696420646f6e277420706c6179")
+      result = str1.equal_length_xor(str2)
+      expect(result.hex).to eq("746865206b696420646f6e277420706c6179")
+    end
+
+    it "can xor itself with a shorter CryptoString" do
+      str1 = CryptoString.new([76, 111, 114, 101, 109])
+      str2 = CryptoString.new([97, 98, 99])
+
+      str3 = str1.xor_with(str2)
+
+      expect(str3.bytes).to eq([45, 13, 17, 4, 15])
+    end
+
+    it "can xor itself with a longer CryptoString" do
+      str1 = CryptoString.new([76, 111, 114, 101, 109])
+      str2 = CryptoString.new([97, 98, 99, 100, 101, 102, 103, 104])
+
+      str3 = str1.xor_with(str2)
+
+      expect(str3.bytes).to eq([45, 13, 17, 1, 8])
+    end
   end
-
 end
