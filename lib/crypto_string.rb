@@ -90,7 +90,7 @@ class CryptoString
 
     score = 0
     plaintext.each_char do |char|
-      score += 1 if char ~= /etianshrdlu/
+      score += 1 if char =~ /etianshrdlu/
     end
 
     score
