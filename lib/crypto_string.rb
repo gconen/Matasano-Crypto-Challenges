@@ -86,11 +86,12 @@ class CryptoString
   end
 
   def english_string_score
-    return -1 unless bytes.all? { |byte| byte.between?(32, 126) }
-
+    ascii_values_of_common_letters =
+          [101, 116, 105, 97, 110, 115, 104, 100, 108, 117]
     score = 0
-    plaintext.each_char do |char|
-      score += 1 if char =~ /etianshrdlu/
+    bytes.each do |byte|
+      return -1 unless byte.between?(32, 126) #printable characters
+      score += 1 if ascii_values_of_common_letters.include?(byte)
     end
 
     score
