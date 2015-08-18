@@ -72,9 +72,9 @@ class CryptoString
     bytes == other.bytes
   end
 
-  def equal_length_xor(other_string)
-    new_bytes = []
-    bytes.each_index do |i|
+  def equal_length_xor(other_string) #a misnomer; it works if the other string
+    new_bytes = []                   #is longer, but not if it's shorter
+    bytes.each_index do |i|          #use xor_with for that.
       new_bytes[i] = bytes[i] ^ other_string.bytes[i]
     end
 
@@ -83,6 +83,15 @@ class CryptoString
 
   def length
     bytes.length
+  end
+
+  def xor_with(other)
+    other_bytes = other.bytes.dup
+    while other_bytes.length < length
+      other_bytes.concat(other_bytes)
+    end
+
+    equal_length_xor(CryptoString.new(other_bytes))
   end
 
   private
