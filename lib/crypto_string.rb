@@ -86,8 +86,8 @@ class CryptoString
   end
 
   def english_string_score
-    ascii_values_of_common_letters =
-          [101, 116, 105, 97, 110, 115, 104, 100, 108, 117]
+    ascii_values_of_common_letters = #also space
+          [101, 116, 105, 97, 110, 115, 104, 100, 108, 117, 32]
     score = 0
     bytes.each do |byte|
       return -1 unless byte.between?(32, 126) #printable characters
