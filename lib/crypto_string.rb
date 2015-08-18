@@ -85,6 +85,17 @@ class CryptoString
     bytes.length
   end
 
+  def english_string_score
+    return -1 unless bytes.all? { |byte| byte.between?(32, 126) }
+
+    score = 0
+    plaintext.each_char do |char|
+      score += 1 if char ~= /etianshrdlu/
+    end
+
+    score
+  end
+
   def xor_with(other)
     other_bytes = other.bytes.dup
     while other_bytes.length < length
