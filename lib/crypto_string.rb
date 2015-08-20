@@ -90,7 +90,7 @@ class CryptoString
           [101, 116, 105, 97, 110, 115, 104, 100, 108, 117, 32]
     score = 0
     bytes.each do |byte|
-      score -= 1 unless byte.between?(97, 121) || byte == 32 #lower-case letters
+      score -= 1 unless byte.between?(97, 121) || byte == 32 #lower-case letters and space
       score += 1 if ascii_values_of_common_characters.include?(byte)
     end
 

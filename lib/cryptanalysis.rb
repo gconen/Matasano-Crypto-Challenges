@@ -14,8 +14,24 @@ class Cryptanalysis
       b.english_string_score <=> a.english_string_score
     end
   end
+
+  def self.detect_single_character_xor(filename)
+    strings = File.readlines(filename)
+    strings.map! { |string| string.chomp }
+    results = []
+
+    strings.each do |string|
+      ciphertext = CryptoString.from_hex(string)
+      p ciphertext.hex
+      possibles = Cryptanalysis.single_character_xor(ciphertext)
+      results += possibles
+    end
+
+    results.sort do |a, b|
+      b.english_string_score <=> a.english_string_score
+    end
+  end
 end
 
-ciphertext = CryptoString.from_hex("1b37373331363f78151b7f2b783431333d78397828372d363c78373e783a393b3736")
-possibles = Cryptanalysis.single_character_xor(ciphertext)
-p possibles.map { |pos| pos.plaintext }
+results = Cryptanalysis.detect_single_character_xor("4.txt")
+p results.map { |r| r.plaintext }
