@@ -33,7 +33,7 @@ class CryptoString
   def hex
     return @hex_string if @hex_string
 
-    @hex_string = @bytes.map{ |byte| byte.to_s(16) }.join("")
+    @hex_string = @bytes.map{ |byte| byte.to_s(16).rjust(2, "0") }.join("")
   end
 
   def plaintext
