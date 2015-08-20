@@ -109,12 +109,12 @@ describe CryptoString do
     end
 
     it "can xor itself with a shorter CryptoString" do
-      str1 = CryptoString.new([76, 111, 114, 101, 109])
-      str2 = CryptoString.new([97, 98, 99])
+      str1 = CryptoString.from_plaintext("Burning 'em, if you ain't quick and nimble\nI go crazy when I hear a cymbal")
+      str2 = CryptoString.from_plaintext("ICE")
 
       str3 = str1.xor_with(str2)
 
-      expect(str3.bytes).to eq([45, 13, 17, 4, 15])
+      expect(str3.hex).to eq("0b3637272a2b2e63622c2e69692a23693a2a3c6324202d623d63343c2a26226324272765272a282b2f20430a652e2c652a3124333a653e2b2027630c692b20283165286326302e27282f")
     end
 
     it "can xor itself with a longer CryptoString" do
