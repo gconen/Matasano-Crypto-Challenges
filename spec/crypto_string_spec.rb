@@ -126,4 +126,11 @@ describe CryptoString do
       expect(str3.bytes).to eq([45, 13, 17, 1, 8])
     end
   end
+
+  describe "Hamming distance" do
+    str1 = CryptoString.from_plaintext("this is a test")
+    str2 = CryptoString.from_plaintext("wokka wokka!!!")
+
+    expect(str1.hamming_distance(str2)).to eq(37)
+  end
 end
