@@ -81,10 +81,6 @@ class CryptoString
     CryptoString.new(new_bytes)
   end
 
-  def length
-    bytes.length
-  end
-
   def english_string_score
     ascii_values_of_common_characters = #etainshrdlu and space
           [101, 116, 105, 97, 110, 115, 104, 100, 108, 117, 32]
@@ -95,6 +91,14 @@ class CryptoString
     end
 
     score
+  end
+
+  def length
+    bytes.length
+  end
+
+  def hamming_distance(other)
+    #no content yet
   end
 
   def xor_with(other)

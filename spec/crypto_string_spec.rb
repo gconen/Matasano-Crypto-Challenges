@@ -97,6 +97,22 @@ describe CryptoString do
         expect(str_plain == str_other).to be false
       end
     end
+
+    context "[]" do
+      let(:str) { CryptoString.from_plaintext("Lorem") }
+
+      it "returns a single byte at an integer index" do
+        byte = str[2]
+
+        expect(byte.plaintext).to eq("r")
+      end
+
+      it "returns a sub-CryptoString at a range of indices" do
+        sub_str = str[2...5]
+
+        expect(sub_str.plaintext).to eq("rem")
+      end
+    end
   end
 
   context "xor ciphers" do
@@ -127,7 +143,7 @@ describe CryptoString do
     end
   end
 
-  describe "Hamming distance" do
+  it "calculates Hamming distance" do
     str1 = CryptoString.from_plaintext("this is a test")
     str2 = CryptoString.from_plaintext("wokka wokka!!!")
 
