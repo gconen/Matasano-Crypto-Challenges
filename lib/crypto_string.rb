@@ -72,6 +72,16 @@ class CryptoString
     bytes == other.bytes
   end
 
+  def [](index)
+    if index.kind_of?(Integer)
+      return CryptoString.new([bytes[index]])
+    elsif index.kind_of?(Range)
+      return CryptoString.new(bytes[index])
+    else
+      raise ArgumentError
+    end
+  end
+
   def equal_length_xor(other_string) #a misnomer; it works if the other string
     new_bytes = []                   #is longer, but not if it's shorter
     bytes.each_index do |i|          #use xor_with for that.
