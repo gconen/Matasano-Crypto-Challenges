@@ -73,7 +73,13 @@ class CryptoString
   end
 
   def [](index)
-    return CryptoString.new([bytes[index]])
+    if index.kind_of?(Integer)
+      return CryptoString.new([bytes[index]])
+    elsif index.kind_of?(Range)
+      return CryptoString.new(bytes[index])
+    else
+      raise ArgumentError
+    end
   end
 
   def equal_length_xor(other_string) #a misnomer; it works if the other string
