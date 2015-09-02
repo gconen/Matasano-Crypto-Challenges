@@ -82,9 +82,9 @@ class CryptoString
     end
   end
 
-  def equal_length_xor(other_string) #a misnomer; it works if the other string
-    new_bytes = []                   #is longer, but not if it's shorter
-    bytes.each_index do |i|          #use xor_with for that.
+  def equal_length_xor(other_string) #probably better to use #xor_with externally
+    new_bytes = []                    #make private?
+    bytes.each_index do |i|
       new_bytes[i] = bytes[i] ^ other_string.bytes[i]
     end
 
@@ -108,7 +108,7 @@ class CryptoString
   end
 
   def hamming_distance(other)
-    #no content yet
+    self.xor_with(other).one_bit_count
   end
 
   def xor_with(other)
@@ -120,11 +120,22 @@ class CryptoString
     equal_length_xor(CryptoString.new(other_bytes))
   end
 
+  protected
+  def one_bit_count
+    sum = 0
+    bytes.each do |byte|
+       sum += byte.to_s(2).count("1")
+    end
+
+    sum
+  end
+
   private
   def clear
     @plaintext = nil
     @hex_string = nil
     @base64_string = nil
   end
+
 
 end
