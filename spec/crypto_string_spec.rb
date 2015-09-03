@@ -149,4 +149,16 @@ describe CryptoString do
 
     expect(str1.hamming_distance(str2)).to eq(37)
   end
+
+  it "splits into blocks of arbitrary length" do
+    str = CryptoString.from_plaintext("Lorem Ipsum.")
+
+    blocks = str.blocks(5)
+
+    expect(blocks).to eq([
+      CryptoString.from_plaintext("Lorem"),
+      CryptoString.from_plaintext(" Ipsu"),
+      CryptoString.from_plaintext("m.")
+      ])
+  end
 end
