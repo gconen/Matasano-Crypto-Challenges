@@ -82,6 +82,18 @@ class CryptoString
     end
   end
 
+  def blocks(length)
+    result = []
+    idx = 0
+    while idx + length < bytes.length
+      result << self[idx...(idx+length)]
+      idx += length
+    end
+    result << self[idx...self.length]
+
+    result
+  end
+
   def equal_length_xor(other_string) #probably better to use #xor_with externally
     new_bytes = []                    #make private?
     bytes.each_index do |i|
