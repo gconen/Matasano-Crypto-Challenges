@@ -1,5 +1,5 @@
 require_relative "crypto_string.rb"
-class Cryptanalysis
+module Cryptanalysis
   def self.single_character_xor(ciphertext)
     possibles = []
     (1...128).each do |value|
@@ -22,7 +22,6 @@ class Cryptanalysis
 
     strings.each do |string|
       ciphertext = CryptoString.from_hex(string)
-      p ciphertext.hex
       possibles = Cryptanalysis.single_character_xor(ciphertext)
       results += possibles
     end
