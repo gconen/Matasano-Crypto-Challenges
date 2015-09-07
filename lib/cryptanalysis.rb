@@ -1,5 +1,5 @@
 require_relative "crypto_string.rb"
-module Cryptanalysis
+module Xor_Cryptanalysis
   def self.single_character_xor(ciphertext)
     possibles = []
     (1...128).each do |value|
@@ -15,6 +15,10 @@ module Cryptanalysis
     end
   end
 
+  def self.calculate_key_length(string)
+
+  end
+
   def self.detect_single_character_xor(filename)
     strings = File.readlines(filename)
     strings.map! { |string| string.chomp }
@@ -27,6 +31,22 @@ module Cryptanalysis
     end
 
     results.sort do |a, b|
+      b.english_string_score <=> a.english_string_score
+    end
+  end
+
+  def self.known_key_length_xor(string, key_length)
+
+  end
+
+  def self.repeating_key_xor(string)
+    key_length_candidates = calculate_key_length(string)
+    candidates = []
+    key_length_candidates.each do |key_length|
+      candidates << known_key_length_xor(string, key_length)
+    end
+
+    candidates.sort do |a, b|
       b.english_string_score <=> a.english_string_score
     end
   end
