@@ -113,6 +113,13 @@ describe CryptoString do
         expect(sub_str.plaintext).to eq("rem")
       end
     end
+
+    it "concatonates with other CryptoStrings" do
+      lorem = CryptoString.new([76, 111, 114, 101, 109])
+      ipsum = CryptoString.from_plaintext(" Ipsum")
+      lorem_ipsum = lorem + ipsum
+      expect(lorem_ipsum.plaintext).to eq("Lorem Ipsum")
+    end
   end
 
   context "xor ciphers" do
