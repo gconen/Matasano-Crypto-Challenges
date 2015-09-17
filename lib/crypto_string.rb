@@ -72,6 +72,11 @@ class CryptoString
     bytes == other.bytes
   end
 
+  def +(other)
+    raise ArgumentError unless other.kind_of?(CryptoString)
+    CryptoString.new(self.bytes + other.bytes)
+  end
+
   def [](index)
     if index.kind_of?(Integer)
       return CryptoString.new([bytes[index]])
