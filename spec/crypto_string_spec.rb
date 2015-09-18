@@ -168,4 +168,14 @@ describe CryptoString do
       CryptoString.from_plaintext("m.")
       ])
   end
+
+  it "splits itself into string fragments of every n characters" do
+    str = CryptoString.from_plaintext("Lorem Ipsum")
+    fragments = str.split(3)
+    expect(fragments).to eq([
+      CryptoString.from_plaintext("LeIu"),
+      CryptoString.from_plaintext("ompm"),
+      CryptoString.from_plaintext("r s")
+      ])
+  end
 end

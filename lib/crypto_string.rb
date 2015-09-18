@@ -4,8 +4,10 @@ class CryptoString
 
   attr_reader :bytes
 
-  def initialize(bytes = nil)
-    @bytes = bytes
+  def initialize(bytes = [])
+    @bytes = bytes.select do |byte|
+      (0...256).include?(byte)
+    end
   end
 
   def self.from_base64(base64_string)
@@ -22,6 +24,17 @@ class CryptoString
     raise "non-ascii characters" unless plaintext_string.ascii_only?
     str = CryptoString.new
     str.set_plaintext(plaintext_string)
+  end
+
+  def self.unsplit(split_strings)
+    result = CryptoString.new([])
+    (0...(split_strings[0].length)).each do |index|
+      split_strings.each do |string_fragment|
+        result = result + string_fragment[index]
+      end
+    end
+
+    result
   end
 
   def base64
@@ -126,6 +139,21 @@ class CryptoString
 
   def hamming_distance(other)
     self.xor_with(other).one_bit_count
+  end
+
+  def split(split_distance)
+    results = []
+    (0...split_distance).each do |offset|
+      result = self[offset]
+      index = offset + split_distance
+      while index < self.length
+        result = result + self[index]
+        index += split_distance
+      end
+      results << result
+    end
+
+    results
   end
 
   def xor_with(other)
