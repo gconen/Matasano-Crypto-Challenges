@@ -20,8 +20,8 @@ describe Xor_Cryptanalysis do
     it "detects the proper key length for repeating key xor" do
       #slightly non-deterministic, but should pass almost all the time.
       10.times do
-        length_5_key = CryptoString.new(Array.new(5) { rand(128) })
-        length_10_key = CryptoString.new(Array.new(10) { rand(128) })
+        length_5_key = CryptoString.new(Array.new(5) { rand(256) })
+        length_10_key = CryptoString.new(Array.new(10) { rand(256) })
         length_5 = shelley.xor_with(length_5_key)
         length_10 = shelley.xor_with(length_10_key)
         expect(Xor_Cryptanalysis.calculate_key_length(length_5)).to include(5)
@@ -30,14 +30,14 @@ describe Xor_Cryptanalysis do
     end
 
     it "decrypts ciphertext with a known key length" do
-      # 10.times do
+      10.times do
         length_5_key = CryptoString.new(Array.new(5) { rand(128) })
-        # length_10_key = CryptoString.new(Array.new(10) { rand(128) })
+        length_10_key = CryptoString.new(Array.new(10) { rand(128) })
         length_5 = shelley.xor_with(length_5_key)
-        # length_10 = shelley.xor_with(length_10_key)
+        length_10 = shelley.xor_with(length_10_key)
         expect(Xor_Cryptanalysis.known_key_length_xor(length_5, 5).plaintext).to eq(shelley.plaintext)
-        # expect(Xor_Cryptanalysis.known_key_length_xor(length_10, 10)).to eq(shelley)
-      # end
+        expect(Xor_Cryptanalysis.known_key_length_xor(length_10, 10)).to eq(shelley)
+      end
     end
   end
 end
